@@ -6,7 +6,8 @@ const PORT = process.env.PORT ?? 3000
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
-  app.useLogger(app.get(Logger));
+  // TODO: uncomment for laters
+  // app.useLogger(app.get(Logger));
   await app.listen(PORT);
 }
 bootstrap();
