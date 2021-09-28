@@ -30,15 +30,25 @@ class ConfigService {
       username: this.getValue('DATABASE_USER'),
       password: this.getValue('DATABASE_PASSWORD'),
       database: this.getValue('DATABASE_NAME'),
+      // logging: true,
 
-      entities: ['**/*.entity.{ts,js}'],
+      // entities: ['**/*.entity.{ts,js}'],
+
+      // migrationsTableName: 'migration',
+
+      // migrations: ['src/migration/*.ts'],
+
+      // seeds: ['src/database/seeds/**/*.ts'],
+      // factories: ['src/database/factories/**/*.ts'],
+
+      entities: ['dist/**/*.entity.{ts,js}'],
 
       migrationsTableName: 'migration',
 
-      migrations: ['src/migration/*.ts'],
+      migrations: ['dist/migration/*.js'],
 
-      seeds: ['src/database/seeds/**/*.ts'],
-      factories: ['src/database/factories/**/*.ts'],
+      seeds: ['dist/database/seeds/**/*.js'],
+      factories: ['dist/database/factories/**/*.js'],
 
       cli: {
         migrationsDir: 'src/migration',

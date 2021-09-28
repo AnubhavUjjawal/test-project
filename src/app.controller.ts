@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { BadRequestException, Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { HealthCheck, HealthCheckService, TypeOrmHealthIndicator } from '@nestjs/terminus';
 import { AppService } from './app.service';
 
@@ -9,6 +9,38 @@ export class AppController {
   @Get()
   getHello(): { data: string } {
     return this.appService.getHello();
+  }
+
+  @Get("/user/:id")
+  async getUserDetails(@Param() params: { id: number }) {
+    try {
+      const user = await this.appService.getUserDetails(params.id)
+      return user
+    } catch (error) {
+      return new NotFoundException()
+    }
+  }
+
+  @Get("/jobs/:userId/")
+  async getJobsPostedByUser(@Param() params: { userId: string }) {
+    try {
+      const jobsByUser = await this.appService.getJobsByUser(params.userId)
+      return jobsByUser
+    } catch (error) {
+      // console.log(error)
+      throw new BadRequestException(error)
+    }
+  }
+
+  @Get("/jobs/role/:roleId")
+  async getJobRoleDetails(@Param() params: { roleId: number }) {
+    try {
+      const jobsByUser = await this.appService.getJobRoleDetails(params.roleId)
+      return jobsByUser
+    } catch (error) {
+      // console.log(error)
+      throw new BadRequestException(error)
+    }
   }
 
   @Get('/health')

@@ -20,7 +20,7 @@ import { TerminusModule } from '@nestjs/terminus';
       })
     }),
     // TODO: Uncomment for later.
-    // LoggerModule.forRoot()
+    LoggerModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
