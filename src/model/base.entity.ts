@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, Index } from 'typeorm';
 
 export abstract class BaseEntity {
     @PrimaryGeneratedColumn({ type: 'bigint' })
@@ -10,6 +10,8 @@ export abstract class BaseEntity {
     @Column({ type: 'boolean', default: false })
     is_archived: boolean;
 
+    // TODO: Index or not ??
+    @Index()
     @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     create_datetime: Date;
 
