@@ -29,7 +29,7 @@ export class AppService {
     return user
   }
 
-  async getJobsByUser(userId: string) {
+  async getJobsByUser(userId: string, offset: number = 0) {
     this.logger.log({ log: "getting all jobs posted by user", userId })
     const results = await this.jobPostRepository
       .createQueryBuilder("job_post")
@@ -37,6 +37,9 @@ export class AppService {
       // .innerJoin(JobPost, "job_post", "job_post.user_id = users.user_id")
       .innerJoin(JobRole, "job_role", "job_role.job_id = job_post.job_id")
       .where("job_post.user_id = :userId", { userId })
+      .andWhere("job_role.id > :offset", { offset })
+      .addOrderBy("job_role.id")
+      .limit(100)
       .getRawMany()
     this.logger.log({ log: "got all jobs posted by user", userId })
     return results
